@@ -1,0 +1,35 @@
+{
+  "name": "edts-gis-web-report",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@types/leaflet": "^1.9.12",
+    "@vueuse/core": "^10.7.1",
+    "autolinker": "^4.0.0",
+    "axios": "^1.7.7",
+    "flowbite": "^2.5.2",
+    "labelgun": "^6.1.0",
+    "leaflet": "^1.9.4",
+    "leaflet-hash": "^0.2.1",
+    "leaflet-tilelayer-wmts": "^1.0.0",
+    "leaflet.control.layers.tree": "^1.1.0",
+    "leaflet.heat": "^0.2.0",
+    "vue": "^3.5.10",
+    "vue-router": "^4.4.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.12.0",
+    "eslint-plugin-vue": "^9.28.0",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "vite": "^5.4.8"
+  }
+}

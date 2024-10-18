@@ -1,0 +1,38 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - build
+    - --build-arg=VITE_CORE_HOSTNAME=${_CORE_HOSTNAME}
+    - --tag=${_AR_IMAGE}
+    - .
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', '${_AR_IMAGE}' ]
+
+- name: gcr.io/cloud-builders/gcloud
+  args:
+    - run
+    - deploy
+    - ${_CR_NAME}
+    - --image=${_AR_IMAGE}
+    - --region=${_REGION}
+    - --platform=managed
+    - --timeout=3600
+    - --memory=4Gi
+    - --cpu=2
+    - --allow-unauthenticated
+
+substitutions:
+  _CR_NAME: edts-gis-web-report-${_ENVIRONMENT}
+  _REGION: asia-southeast2
+  _PROJECT_ID: edts-playpen-leonardi
+  _REPOSITORY: edts-gis-images
+  _IMAGE: edts-gis-web-report
+  _PROJECT_CODE: '617510130799'
+  _AR_IMAGE: ${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/${_IMAGE}:${_ENVIRONMENT}
+
+images:
+  - '${_AR_IMAGE}'
+
+options:
+  dynamicSubstitutions: true
