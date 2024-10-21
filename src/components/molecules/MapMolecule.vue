@@ -13,14 +13,15 @@ const props = defineProps({
 
 const coreHostname = import.meta.env.VITE_CORE_HOSTNAME;
 const refLayers = ref(null);
-const initData = await getInitData(coreHostname, props.urlPath);
+const [initData, totalPages] = await getInitData(coreHostname, props.urlPath);
+
 
 onMounted(() => {
   const layers = props.configureMap(...initData);
   refLayers.value = layers;
 
   for (let i = 0; i < props.urlPath.length; i++) {
-    updateLayer(refLayers.value[i], coreHostname, props.urlPath[i]);
+    updateLayer(refLayers.value[i], coreHostname, props.urlPath[i], totalPages[i]);
   }
 })
 
