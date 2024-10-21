@@ -18,8 +18,8 @@ steps:
     - --region=${_REGION}
     - --platform=managed
     - --timeout=3600
-    - --memory=4Gi
-    - --cpu=2
+    - --memory=${_MEMORY}
+    - --cpu=${_CPY}
     - --allow-unauthenticated
 
 substitutions:
@@ -30,6 +30,8 @@ substitutions:
   _IMAGE: edts-gis-web-report
   _PROJECT_CODE: '617510130799'
   _AR_IMAGE: ${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/${_IMAGE}:${_ENVIRONMENT}
+  _MEMORY: 4Gi # Overwritten by Cloud Build Trigger
+  _CPU: "2" # Overwritten by Cloud Build Trigger
 
 images:
   - '${_AR_IMAGE}'
