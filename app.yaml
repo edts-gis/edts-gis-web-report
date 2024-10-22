@@ -17,3 +17,4 @@ network:
   instance_ip_mode: internal
 vpc_access_connector:
   name: projects/edts-playpen-leonardi/locations/asia-southeast2/connectors/edts-gis-dev-connector
+  egress_setting: all-traffic
