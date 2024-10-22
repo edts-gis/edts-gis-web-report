@@ -19,7 +19,7 @@
         :pathD="pathDMap.reports"
       />
       <!-- Report Sub-List -->
-      <ul :id="reportsDropdownData.id" class="hidden py-2 space-y-2">
+      <ul :id="reportsDropdownData.id" class="py-2 space-y-2">
         <li v-for="subItem in reportsDropdownData.subItems">
           <SidebarItemAtom
             :label="subItem.label"
