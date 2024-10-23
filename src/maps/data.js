@@ -16,7 +16,7 @@ export const getInitData = async (domain, paths) => {
 }
 
 
-export const updateLayer = (layer, domain, path, total_page, start_page = 2, batch = 10) => {
+export const updateLayer = (layer, domain, path, total_page, start_page = 2, batch = 5) => {
     let URLS = []
     const max_batch = Math.min(start_page + batch, total_page)
     for (let p = start_page; p <= max_batch; p++) {
