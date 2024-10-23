@@ -1,40 +1,30 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-    - build
-    - --build-arg=VITE_CORE_HOSTNAME=${_CORE_HOSTNAME}
-    - --tag=${_AR_IMAGE}
-    - .
-
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', '${_AR_IMAGE}' ]
-
-- name: gcr.io/cloud-builders/gcloud
-  args:
-    - run
-    - deploy
-    - ${_CR_NAME}
-    - --image=${_AR_IMAGE}
-    - --region=${_REGION}
-    - --platform=managed
-    - --timeout=3600
-    - --memory=${_MEMORY}
-    - --cpu=${_CPY}
-    - --allow-unauthenticated
-
-substitutions:
-  _CR_NAME: edts-gis-web-report-${_ENVIRONMENT}
-  _REGION: asia-southeast2
-  _PROJECT_ID: edts-playpen-leonardi
-  _REPOSITORY: edts-gis-images
-  _IMAGE: edts-gis-web-report
-  _PROJECT_CODE: '617510130799'
-  _AR_IMAGE: ${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/${_IMAGE}:${_ENVIRONMENT}
-  _MEMORY: 4Gi # Overwritten by Cloud Build Trigger
-  _CPU: "2" # Overwritten by Cloud Build Trigger
-
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - '--build-arg=VITE_CORE_HOSTNAME=${_CORE_HOSTNAME}'
+      - '--tag=${_AR_IMAGE}'
+      - .
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - '${_AR_IMAGE}'
+  - name: gcr.io/cloud-builders/gcloud
+    args:
+      - app
+      - deploy
+      - app.yaml
+      - '--image-url=${_AR_IMAGE}'
 images:
   - '${_AR_IMAGE}'
-
 options:
   dynamicSubstitutions: true
+substitutions:
+  _ENVIRONMENT: '' # Overwrite in Cloud Build
+  _CORE_HOSTNAME: '' # Overwrie in Cloud Build
+  _PROJECT_ID: edts-playpen-leonardi
+  _PROJECT_CODE: '617510130799'
+  _REGION: asia-southeast2
+  _IMAGE: edts-gis-web-report
+  _REPOSITORY: edts-gis-images
+  _AR_IMAGE: ${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/${_IMAGE}:${_ENVIRONMENT}-internal

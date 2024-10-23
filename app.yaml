@@ -11,10 +11,3 @@ resources:
   cpu: 2
   memory_gb: 4
   disk_size_gb: 10
-network:
-  name: projects/edts-playpen-leonardi/global/networks/edts-gis-vpc-dev
-  subnetwork_name: asia-southeast2
-  instance_ip_mode: internal
-vpc_access_connector:
-  name: projects/edts-playpen-leonardi/locations/asia-southeast2/connectors/edts-gis-dev-connector
-  egress_setting: all-traffic
