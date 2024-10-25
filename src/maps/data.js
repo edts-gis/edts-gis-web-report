@@ -1,37 +1,57 @@
 import axios from "axios"
 
 
-export const getInitData = async (domain, paths) => {
-    var initData = []
-    var totalPages = []
+export const getInitData = async (domain, layers) => {
+    var initLayer = []
 
-    for (let i = 0; i < paths.length; i++) {
-      const URL = domain + "/" + paths[i];
+    for (let i = 0; i < layers.length; i++) {
+      const URL = domain + "/" + layers[i].url;
       
       const response = await axios.get(URL)
-      initData.push(response.data.data)
-      totalPages.push(response.data.total_page);
+
+      initLayer.push({
+        id: layers[i].id,
+        data: response.data.data,
+        totalPage: response.data.total_page
+      })
     }
-    return [initData, totalPages];
+    return initLayer;
+}
+
+export const mappingLayers = (layers, initMapLayers, initLayerData) => {
+  const dataLayers = Object.fromEntries(
+    initLayerData.map((l) => { return [l.id, l.totalPage]; })
+  );
+  const mapLayers = layers.map((l) => {
+    const tmpLayer = {
+      id: l.id,
+      label: l.label,
+      url: l.url,
+      totalPage: dataLayers[l.id],
+      layer: initMapLayers[l.id]
+    }
+    return tmpLayer;
+  });
+  return mapLayers;
 }
 
 
-export const updateLayer = (layer, domain, path, total_page, start_page = 2, batch = 5) => {
+export const updateLayer = (mapLayer, hostname, startPage = 2, batch = 3) => {
     let URLS = []
-    const max_batch = Math.min(start_page + batch, total_page)
-    for (let p = start_page; p <= max_batch; p++) {
-      URLS.push(domain + "/" + path + "?page=" + p);
+    const maxBatch = Math.min(startPage + batch, mapLayer.totalPage)
+    for (let p = startPage; p <= maxBatch; p++) {
+      URLS.push(hostname + "/" + mapLayer.url + "?page=" + p);
     }
 
     axios.all(URLS.map((url) => axios.get(url)))
       .then((responses) => {
         responses.forEach((r) => {
-          layer.addData(r.data.data);
+          mapLayer.layer.addData(r.data.data);
         });
       })
       .catch((error) => {console.error(error);});
 
-    if (max_batch < total_page) {
-      updateLayer(layer, domain, path, total_page, max_batch + 1, batch);
+    if (maxBatch < mapLayer.totalPage) {
+      updateLayer(mapLayer, hostname, maxBatch + 1, batch);
     }
   }

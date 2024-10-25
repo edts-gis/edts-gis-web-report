@@ -40,9 +40,9 @@ export function configureMap(json_populations_1, json_brand_stores_2) {
             popup._contentNode.classList.remove('media');
         }
     }
-    var zoomControl = L.control.zoom({
-        position: 'topleft'
-    }).addTo(map);
+    // var zoomControl = L.control.zoom({
+    //     position: 'topleft'
+    // }).addTo(map);
     var bounds_group = new L.featureGroup([]);
     function setBounds() {
     }
@@ -311,22 +311,28 @@ export function configureMap(json_populations_1, json_brand_stores_2) {
     });
     bounds_group.addLayer(layer_brand_stores_2);
     map.addLayer(layer_brand_stores_2);
-    var baseMaps = {};
-    var overlaysTree = [
-        {label: 'brand_stores<br /><table><tr><td style="text-align: center;"><img src="legend/brand_stores_2_ALFAMART0.png" /></td><td>ALFAMART</td></tr><tr><td style="text-align: center;"><img src="legend/brand_stores_2_INDOMARET1.png" /></td><td>INDOMARET</td></tr><tr><td style="text-align: center;"><img src="legend/brand_stores_2_LAWSON2.png" /></td><td>LAWSON</td></tr></table>', layer: layer_brand_stores_2},
-        {label: 'populations<br /><table><tr><td style="text-align: center;"><img src="legend/populations_1_289256858440.png" /></td><td>28925 - 685844</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_68584412583841.png" /></td><td>685844 - 1258384</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_125838417043562.png" /></td><td>1258384 - 1704356</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_170435620190873.png" /></td><td>1704356 - 2019087</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_201908722701674.png" /></td><td>2019087 - 2270167</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_227016723978875.png" /></td><td>2270167 - 2397887</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_239788726870666.png" /></td><td>2397887 - 2687066</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_268706630838837.png" /></td><td>2687066 - 3083883</td></tr></table>', layer: layer_populations_1},
-        {label: "OpenStreetMap", layer: layer_OpenStreetMap_0},]
-    var lay = L.control.layers.tree(null, overlaysTree,{
-        //namedToggle: true,
-        //selectorBack: false,
-        //closedSymbol: '&#8862; &#x1f5c0;',
-        //openedSymbol: '&#8863; &#x1f5c1;',
-        //collapseAll: 'Collapse all',
-        //expandAll: 'Expand all',
-        collapsed: true,
-    });
-    lay.addTo(map);
+    // var baseMaps = {};
+    // var overlaysTree = [
+    //     {label: 'brand_stores<br /><table><tr><td style="text-align: center;"><img src="legend/brand_stores_2_ALFAMART0.png" /></td><td>ALFAMART</td></tr><tr><td style="text-align: center;"><img src="legend/brand_stores_2_INDOMARET1.png" /></td><td>INDOMARET</td></tr><tr><td style="text-align: center;"><img src="legend/brand_stores_2_LAWSON2.png" /></td><td>LAWSON</td></tr></table>', layer: layer_brand_stores_2},
+    //     {label: 'populations<br /><table><tr><td style="text-align: center;"><img src="legend/populations_1_289256858440.png" /></td><td>28925 - 685844</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_68584412583841.png" /></td><td>685844 - 1258384</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_125838417043562.png" /></td><td>1258384 - 1704356</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_170435620190873.png" /></td><td>1704356 - 2019087</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_201908722701674.png" /></td><td>2019087 - 2270167</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_227016723978875.png" /></td><td>2270167 - 2397887</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_239788726870666.png" /></td><td>2397887 - 2687066</td></tr><tr><td style="text-align: center;"><img src="legend/populations_1_268706630838837.png" /></td><td>2687066 - 3083883</td></tr></table>', layer: layer_populations_1},
+    //     {label: "OpenStreetMap", layer: layer_OpenStreetMap_0},]
+    // var lay = L.control.layers.tree(null, overlaysTree,{
+    //     //namedToggle: true,
+    //     //selectorBack: false,
+    //     //closedSymbol: '&#8862; &#x1f5c0;',
+    //     //openedSymbol: '&#8863; &#x1f5c1;',
+    //     //collapseAll: 'Collapse all',
+    //     //expandAll: 'Expand all',
+    //     collapsed: true,
+    // });
+    // lay.addTo(map);
     setBounds();
     
-    return [layer_populations_1, layer_brand_stores_2]
+    return [
+        map,
+        {
+            "populations": layer_populations_1,
+            "brand-stores": layer_brand_stores_2
+        }
+    ]
 }

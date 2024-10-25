@@ -1,12 +1,13 @@
 <template>
-  <div class="h-screen flex items-center justify-center">
+  <div class="relative flex h-screen items-center justify-center">
     <Suspense>
       <template #default>
         <MapMolecule
           :configureMap="props.configureMap"
-          :urlPath="props.urlPath"
+          :layers="props.layers"
         />
       </template>
+
       <template #fallback>
         <MapLoadingMolecule />
       </template>
@@ -15,14 +16,11 @@
 </template>
 
 <script setup>
-import { Suspense } from 'vue';
-
 import MapLoadingMolecule from '@/components/molecules/MapLoadingMolecule.vue';
 import MapMolecule from '@/components/molecules/MapMolecule.vue';
 
 const props = defineProps({
   configureMap: Function,
-  urlPath: Object
+  layers: Array
 })
-
 </script>

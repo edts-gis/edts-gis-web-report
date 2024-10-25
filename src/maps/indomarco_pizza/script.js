@@ -328,5 +328,11 @@ export function configureMap(json_geom_kabkota_pizza_1, json_geom_indonesia_kelu
     map.addLayer(layer_geom_indonesia_kelurahan_202404_2);
     setBounds()
 
-    return [layer_geom_kabkota_pizza_1, layer_geom_indonesia_kelurahan_202404_2]
+    return [
+        map,
+        {
+            "kabkota-pizza": layer_geom_kabkota_pizza_1,
+            "kelurahan": layer_geom_indonesia_kelurahan_202404_2
+        }
+    ]
 };

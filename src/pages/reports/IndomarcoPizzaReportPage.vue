@@ -2,7 +2,7 @@
   <!-- Map -->
   <MapOrganism
     :configureMap="configureMap"
-    :urlPath="urlPath"
+    :layers="layers"
   />
 </template>
 
@@ -11,8 +11,16 @@ import MapOrganism from "@/components/organisms/MapOrganism.vue"
 
 import { configureMap } from "@/maps/indomarco_pizza/script.js"
 
-const urlPath = [
-  "indomarco-pizza/geom-kabkota-pizza",
-  "indomarco-pizza/geom-indonesia-kelurahan"
+const layers = [
+  {
+    id: "kabkota-pizza",
+    label: "Kabkota Pizza",
+    url: "indomarco-pizza/geom-kabkota-pizza"
+  },
+  {
+    id: "kelurahan",
+    label: "Kelurahan",
+    url: "indomarco-pizza/geom-indonesia-kelurahan"
+  }
 ]
 </script>
